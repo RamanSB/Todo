@@ -3,11 +3,20 @@ import apiController from '../controllers/apiController.js';
 
 const router = express.Router();
 
-router.route('/todos')
+router.get('/api/test', (req, res) => {
+    console.log(`test`);
+    return res.status(200).send('test');
+});
+
+router.route('/api/todos')
+    .post(apiController.createTodo)
     .get(apiController.getAllTodos)
-    .post(apiController.createTodo);
+    
 
-router.route('/todos/:id')
-    .delete(apiController.deleteTodo);
+// router.route('/todos/:id')
+//     .get(apiController.getPostById)
+//     .delete(apiController.deleteTodo);
 
-router.param('id', apiController.loadTodo);
+//router.param('id', apiController.loadTodo);
+
+export default router;
