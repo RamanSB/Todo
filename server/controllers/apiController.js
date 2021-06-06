@@ -27,5 +27,47 @@ const createTodo = async (req, res) => {
     }
 }
 
+const getTodoById = async (req, res) => {
+    try {
+        return res.status(200).send(req.body.todo);
+    } catch(err){
+        return res.status(404).json({
+            error: `An error occurred: ${err}`
+        });
+    }
+}
 
-export default { getAllTodos, createTodo     }
+const deletePost = async (req, res) => {
+    try {
+        const {_id} = req.body.todo;
+        console.log(`Id: ${_id}`);
+        await TodoModel.findByIdAndDelete(_id);
+        console.log(`Successfully delete post: ${JSON.stringify(req.body.todo)}`);
+        return res.status(200).json({
+            result: "success",
+            message: req.body.todo
+        });
+    } catch (err) {
+        res.status(404).json({
+            error: `An error occurred: ${err}`
+        });
+    }
+}
+
+const loadTodo = async (req, res, next, id) => {
+    try {
+        console.log(`loadTodo: ${id}`);
+        const todoItem = await TodoModel.findById(id);
+        if( todoItem == null) {
+            throw new Error("Unable to find todo item with id: "  + id);
+        }
+        req.body.todo = todoItem;
+        next();
+    } catch(err) {
+        return res.status(404).json({
+            error: `An error occurred: ${err}`
+        });
+    }
+}
+
+export default { getAllTodos, createTodo, loadTodo, getTodoById, deletePost }

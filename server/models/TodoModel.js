@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const TodoModel = mongoose.Schema({
     "title": {
         type: String,
-        required: true    
+        required: true,
     },
     "description": String,
     "date": {

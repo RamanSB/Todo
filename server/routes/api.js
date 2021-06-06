@@ -13,10 +13,10 @@ router.route('/api/todos')
     .get(apiController.getAllTodos)
     
 
-// router.route('/todos/:id')
-//     .get(apiController.getPostById)
-//     .delete(apiController.deleteTodo);
+router.route('/api/todos/:id')
+    .get(apiController.getTodoById)
+    .delete(apiController.deletePost)
 
-//router.param('id', apiController.loadTodo);
+router.param('id', apiController.loadTodo);
 
 export default router;
