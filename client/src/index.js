@@ -1,9 +1,10 @@
 import React from 'react';
-import { AppBar, IconButton, Paper, InputBase, Toolbar, Typography, Link, Button } from '@material-ui/core';
+import { AppBar, IconButton, Paper, InputBase, Toolbar, Typography, Link, Button, Icon, Badge } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import ReactDOM from 'react-dom';
 import SearchIcon from '@material-ui/icons/Search';
-import { ListAlt, AddToQueue  } from '@material-ui/icons';
+import { ListAlt, AddToQueue, List  } from '@material-ui/icons';
+
 import { green } from '@material-ui/core/colors';
 
 
@@ -77,6 +78,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "4px",
         minWidth: "600px"   
     },
+    displayButton: {
+        color: "#000000",
+        backgroundColor: "white",
+        backgroundImage: "linear-gradient(to right, #fefefe, white)"
+    }
 }));
 
 const App = () => {
@@ -117,8 +123,23 @@ const App = () => {
                 <Typography variant="subtitle1" style={{textAlign: "center", marginTop: "240px"}}>
                     It's seem like you have nothing to-do.<br/> Let's get started, click <Link onClick={handleNoItemLinkClick}>here</Link> to add something to-do.
                 </Typography>
-                <InputBase placeholder="Add something to do; take out the trash..."  inputProps={{ style: {textAlign: 'center'} }} className={classes.todoItemInput}/>
-                <Button startIcon={<AddToQueue/>} variant="outlined"  style={{width: "120px", height: "48px", marginLeft: "4px",  borderColor: "royalblue"}}>Add</Button>
+                <div>
+                    <InputBase placeholder="Add something to do; take out the trash..."  inputProps={{ style: {textAlign: 'center'} }} className={classes.todoItemInput}/>
+                    <Button startIcon={<AddToQueue/>} variant="outlined"  style={{width: "100px",  marginLeft: "4px",  borderColor: "royalblue"}}>Add</Button>
+                </div>
+                <Button
+                    variant="contained"
+                    className={classes.displayButton}
+                    startIcon={<Badge badgeContent={2} showZero max={5} color="error" style={{color: "royalblue"}}>
+                    <List />
+                </Badge>}>
+                
+                </Button>
+                <IconButton style={{backgroundColor: "darkgray"}}>
+                <Badge badgeContent={2} showZero max={5} color="error" style={{color: "royalblue"}}>
+                                <List />
+                            </Badge>
+                </IconButton>
             </Paper>
         </div>
     );
