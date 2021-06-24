@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, IconButton, Paper, InputBase, Toolbar, Typography, Link, Button, Icon, Badge } from '@material-ui/core';
+import { AppBar, IconButton, Paper, InputBase, Toolbar, Typography, Link, Button, Icon, Badge, Grow } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import ReactDOM from 'react-dom';
 import SearchIcon from '@material-ui/icons/Search';
@@ -11,14 +11,13 @@ import { green } from '@material-ui/core/colors';
 const useStyles = makeStyles((theme) => ({
     rootContainer: {
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center"        
     },
     paperContainer: {
         width: "800px",
         height: "640px",
         marginTop: "80px",
-        backgroundImage: "linear-gradient(to top left, darkgrey, #d3d3d9)",
-        textAlign: "center"
+        backgroundImage: "linear-gradient(to top left, darkgrey, #d3d3d9)"
     },
     toolbarIcon: {
         marginLeft: "1px",
@@ -80,8 +79,11 @@ const useStyles = makeStyles((theme) => ({
     },
     displayButton: {
         color: "#000000",
+        justifyContent: "flex-end",
         backgroundColor: "white",
-        backgroundImage: "linear-gradient(to right, #fefefe, white)"
+        marginRight: "auto",
+        backgroundImage: "linear-gradient(to right, #fefefe, white)",
+        
     }
 }));
 
@@ -120,26 +122,32 @@ const App = () => {
                         </div>
                     </Toolbar>
                 </AppBar>
-                <Typography variant="subtitle1" style={{textAlign: "center", marginTop: "240px"}}>
+                {/* <Typography variant="subtitle1" style={{textAlign: "center", marginTop: "240px"}}>
                     It's seem like you have nothing to-do.<br/> Let's get started, click <Link onClick={handleNoItemLinkClick}>here</Link> to add something to-do.
                 </Typography>
-                <div>
+                <div style={{textAlign: "center"}}>
                     <InputBase placeholder="Add something to do; take out the trash..."  inputProps={{ style: {textAlign: 'center'} }} className={classes.todoItemInput}/>
                     <Button startIcon={<AddToQueue/>} variant="outlined"  style={{width: "100px",  marginLeft: "4px",  borderColor: "royalblue"}}>Add</Button>
                 </div>
-                <Button
-                    variant="contained"
-                    className={classes.displayButton}
-                    startIcon={<Badge badgeContent={2} showZero max={5} color="error" style={{color: "royalblue"}}>
-                    <List />
-                </Badge>}>
-                
-                </Button>
-                <IconButton style={{backgroundColor: "darkgray"}}>
-                <Badge badgeContent={2} showZero max={5} color="error" style={{color: "royalblue"}}>
+                <div style={{textAlign: "end", paddingRight: "28px", marginTop: "184px"}}>
+                    <Button
+                        variant="contained"
+                        className={classes.displayButton}
+                        startIcon={
+                            <Badge badgeContent={2} showZero max={5} color="error" style={{flexGrow: "1", color: "royalblue", border: "1px solid black"}}>
                                 <List />
-                            </Badge>
-                </IconButton>
+                            </Badge>}>
+                    </Button> 
+                </div> */}
+                <Grow
+                    in={true}
+                    style={{ transformOrigin: '1 1 3' }}
+                    {...{ timeout: 1000 }}
+                    >
+                    <Paper style={{width:"700px", height: "500px", margin: "auto", marginTop:"36px", backgroundImage:"linear-gradient(to left top, slategray, darkgrey"}}  elevation={4} className={classes.paper}>
+                        
+                    </Paper>
+                </Grow>
             </Paper>
         </div>
     );
