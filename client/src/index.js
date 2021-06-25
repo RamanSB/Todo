@@ -1,9 +1,9 @@
 import React from 'react';
-import { AppBar, IconButton, Paper, InputBase, Toolbar, Typography, Link, Button, Icon, Badge, Grow } from '@material-ui/core';
+import { AppBar, IconButton, Paper, InputBase, Toolbar, Typography, Link, Button, Icon, Badge, Grow, Card, CardContent, FormControlLabel, Checkbox } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import ReactDOM from 'react-dom';
 import SearchIcon from '@material-ui/icons/Search';
-import { ListAlt, AddToQueue, List  } from '@material-ui/icons';
+import { ListAlt, AddToQueue, List, CheckBox  } from '@material-ui/icons';
 
 import { green } from '@material-ui/core/colors';
 
@@ -80,10 +80,8 @@ const useStyles = makeStyles((theme) => ({
     displayButton: {
         color: "#000000",
         justifyContent: "flex-end",
-        backgroundColor: "white",
-        marginRight: "auto",
-        backgroundImage: "linear-gradient(to right, #fefefe, white)",
-        
+        backgroundColor: "black",
+        marginRight: "auto"
     }
 }));
 
@@ -122,7 +120,7 @@ const App = () => {
                         </div>
                     </Toolbar>
                 </AppBar>
-                {/* <Typography variant="subtitle1" style={{textAlign: "center", marginTop: "240px"}}>
+                <Typography variant="subtitle1" style={{textAlign: "center", marginTop: "240px"}}>
                     It's seem like you have nothing to-do.<br/> Let's get started, click <Link onClick={handleNoItemLinkClick}>here</Link> to add something to-do.
                 </Typography>
                 <div style={{textAlign: "center"}}>
@@ -134,20 +132,37 @@ const App = () => {
                         variant="contained"
                         className={classes.displayButton}
                         startIcon={
-                            <Badge badgeContent={2} showZero max={5} color="error" style={{flexGrow: "1", color: "royalblue", border: "1px solid black"}}>
+                            <Badge badgeContent={2} showZero max={5} color="secondary" style={{flexGrow: "1", color: "white", border: "2px solid black"}}>
                                 <List />
                             </Badge>}>
                     </Button> 
-                </div> */}
-                <Grow
+                </div>
+                {/* <Grow
                     in={true}
                     style={{ transformOrigin: '1 1 3' }}
                     {...{ timeout: 1000 }}
                     >
-                    <Paper style={{width:"700px", height: "500px", margin: "auto", marginTop:"36px", backgroundImage:"linear-gradient(to left top, slategray, darkgrey"}}  elevation={4} className={classes.paper}>
+                    <Paper style={{width:"700px", height: "500px", margin: "auto", marginTop:"64px", backgroundImage:"linear-gradient(to left top, slategray, darkgrey)"}}  elevation={4} className={classes.paper}>
                         
+                    
+                        <Card style={{width:"180px", height: "220px", backgroundColor: "white"}}>
+                            <CardContent style={{width: "150px", height: "190px", margin: "auto", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+                                <Typography variant="body2" gutterBottom style={{wordWrap: "break-word"}}>An example todo item - take out the trash</Typography>
+                                <FormControlLabel
+                                    labelPlacement="start"
+                                    label={<Typography variant="subtitle2">DONE</Typography>}                                
+                                    control = {
+                                        <Checkbox
+                                            checked={true}
+                                            //onChange={}
+                                            name="checked-item"/>
+                                        }>
+                                </FormControlLabel>
+                            </CardContent>
+                        </Card>
+
                     </Paper>
-                </Grow>
+                </Grow> */}
             </Paper>
         </div>
     );
