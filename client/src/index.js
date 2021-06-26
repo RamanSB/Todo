@@ -1,11 +1,10 @@
 import React from 'react';
-import { AppBar, IconButton, Paper, InputBase, Toolbar, Typography, Link, Button, Icon, Badge, Grow, Card, CardContent, FormControlLabel, Checkbox } from '@material-ui/core';
+import { AppBar, IconButton, Paper, InputBase, Toolbar, Typography, Link, Button, Icon, Badge, Grow, Card, CardContent, FormControlLabel, Checkbox, Grid } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import ReactDOM from 'react-dom';
 import SearchIcon from '@material-ui/icons/Search';
-import { ListAlt, AddToQueue, List, CheckBox  } from '@material-ui/icons';
+import { ListAlt, Add, List, CheckBox  } from '@material-ui/icons';
 
-import { green } from '@material-ui/core/colors';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -80,8 +79,15 @@ const useStyles = makeStyles((theme) => ({
     displayButton: {
         color: "#000000",
         justifyContent: "flex-end",
-        backgroundColor: "black",
-        marginRight: "auto"
+        backgroundColor: "DimGray",
+        marginRight: "auto",
+        border: "1px solid white"
+    },
+    gridItem: {
+        color: "azure",
+        "& .MuiGrid-item" : {
+            padding: "8px"
+        }
     }
 }));
 
@@ -125,14 +131,17 @@ const App = () => {
                 </Typography>
                 <div style={{textAlign: "center"}}>
                     <InputBase placeholder="Add something to do; take out the trash..."  inputProps={{ style: {textAlign: 'center'} }} className={classes.todoItemInput}/>
-                    <Button startIcon={<AddToQueue/>} variant="outlined"  style={{width: "100px",  marginLeft: "4px",  borderColor: "royalblue"}}>Add</Button>
+                    <IconButton style={{border: "1px solid white", backgroundColor:"DimGray", marginLeft:"4px"}}>
+                        <Add style={{color: "#ffffff"}}/>
+                    </IconButton>
+                
                 </div>
                 <div style={{textAlign: "end", paddingRight: "28px", marginTop: "184px"}}>
                     <Button
                         variant="contained"
                         className={classes.displayButton}
                         startIcon={
-                            <Badge badgeContent={2} showZero max={5} color="secondary" style={{flexGrow: "1", color: "white", border: "2px solid black"}}>
+                            <Badge badgeContent={2} showZero max={5} color="secondary" style={{flexGrow: "1", color: "white"}}>
                                 <List />
                             </Badge>}>
                     </Button> 
@@ -142,25 +151,28 @@ const App = () => {
                     style={{ transformOrigin: '1 1 3' }}
                     {...{ timeout: 1000 }}
                     >
-                    <Paper style={{width:"700px", height: "500px", margin: "auto", marginTop:"64px", backgroundImage:"linear-gradient(to left top, slategray, darkgrey)"}}  elevation={4} className={classes.paper}>
+                    <Paper style={{width:"700px", height: "500px", margin: "auto", marginTop:"64px", padding: "8px", backgroundImage:"linear-gradient(to left top, slategray, darkgrey)"}}  elevation={4} className={classes.paper}>
                         
-                    
-                        <Card style={{width:"180px", height: "220px", backgroundColor: "white"}}>
-                            <CardContent style={{width: "150px", height: "190px", margin: "auto", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
-                                <Typography variant="body2" gutterBottom style={{wordWrap: "break-word"}}>An example todo item - take out the trash</Typography>
-                                <FormControlLabel
-                                    labelPlacement="start"
-                                    label={<Typography variant="subtitle2">DONE</Typography>}                                
-                                    control = {
-                                        <Checkbox
-                                            checked={true}
-                                            //onChange={}
-                                            name="checked-item"/>
-                                        }>
-                                </FormControlLabel>
-                            </CardContent>
-                        </Card>
-
+                    <Grid style={{marginTop:"6px", marginLeft: "20px", margin: "auto", justifyContent:"start"}} container spacing={4}>
+                        <Grid className={classes.gridItem} item>
+                            <Card style={{width:"180px", height: "220px", backgroundColor: "white"}}>
+                                <CardContent style={{width: "150px", height: "190px", margin: "auto", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+                                    <Typography variant="body2" gutterBottom style={{wordWrap: "break-word"}}>An example todo item - take out the trash</Typography>
+                                    <FormControlLabel
+                                        labelPlacement="start"
+                                        label={<Typography variant="subtitle2">DONE</Typography>}                                
+                                        control = {
+                                            <Checkbox
+                                                checked={true}
+                                                //onChange={}
+                                                name="checked-item"/>
+                                            }>
+                                    </FormControlLabel>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+            
+                    </Grid>
                     </Paper>
                 </Grow> */}
             </Paper>
