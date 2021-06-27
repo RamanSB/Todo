@@ -29,12 +29,11 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
 
-    const classes = useStyles();
-
     const handleNoItemLinkClick = (event) => {
         console.log(`When this is clicked we will display an InputBase to add a Todo Item`);
     }
 
+    const classes = useStyles();
     return (
         <div id="root" className={classes.rootContainer}>
             <Paper elevation={2} className={classes.paperContainer}>
