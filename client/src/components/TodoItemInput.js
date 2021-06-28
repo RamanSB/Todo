@@ -1,6 +1,8 @@
 import { InputBase, IconButton, Badge } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import GlobalStateContextProvider, { GlobalStateContext } from '../contexts/GlobalStateContext';
 
 const useStyles = makeStyles(theme => ({
     todoItemInput: {
@@ -13,11 +15,60 @@ const useStyles = makeStyles(theme => ({
 
 function TodoItemInput() {
     
+    const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
+
+    const [todoItem, setTodoItem] = React.useState({
+            text: "",
+            created: Date.now()
+    });
+
+
+    const onInputBaseChange = (event) => {
+        console.log(`An input occurred: ${event.target.value}`);
+        console.log(`Initial State: ${JSON.stringify(todoItem)}`);
+        setTodoItem(oldState => (
+            {
+                ...oldState,
+                created: Date.now(),
+                text: event.target.value.toString()
+            }
+        ));
+
+        console.log(`State: ${JSON.stringify(todoItem)}`);
+    }
+
+    const onSubmitTodoItem = () => {    
+        console.log(`localState [Initial]: ${JSON.stringify(todoItem)}`);
+        console.log(`GlobalState [Initial]: ${JSON.stringify(globalState)}`);
+        setTodoItem({
+            text: "",
+            created: ""
+        });
+        setGlobalState(globalState => ({
+            ...globalState,
+            todoItems: [...globalState.todoItems, {created: Date.now(), text: todoItem.text}]
+        }))
+        console.log(`localState: [Final]: ${JSON.stringify(todoItem)}`);
+        console.log(`GlobalState [Final]: ${JSON.stringify(globalState)}`);
+
+        
+    }
+
     const classes = useStyles(); 
     return (        
             <div style={{textAlign: "center"}}>
-                <InputBase placeholder="Add something to do; take out the trash..."  inputProps={{ style: {textAlign: 'center'} }} className={classes.todoItemInput}/>
-                <IconButton style={{border: "1px solid white", backgroundColor:"DimGray", marginLeft:"4px"}}>
+                <InputBase 
+                    onChange={onInputBaseChange}
+                    placeholder={globalState.todoItems.length === 0 ? "Add something to do; take out the trash..." : ""}
+                    inputProps={{ style: {textAlign: 'center'} }} 
+                    value={todoItem.text}
+                    className={classes.todoItemInput}/>
+                <IconButton 
+                    onClick={onSubmitTodoItem}
+                    disabled={todoItem.text === ""} 
+                    style={{border: "1px solid white",
+                    backgroundColor:"DimGray",
+                    marginLeft:"4px"}}>
                     <Add style={{color: "#ffffff"}}/>
                 </IconButton>    
             </div>

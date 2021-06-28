@@ -1,6 +1,9 @@
 import { Button, Badge } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { List } from '@material-ui/icons';
+import { GlobalStateContext } from '../contexts/GlobalStateContext';
+import React from 'react';
+
 
 const useStyles = makeStyles(theme => ({
     displayButton: {
@@ -13,13 +16,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function DisplayListActionButton() {
+
+    const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
+
+    const [actionBtnState, setActionBtnState] = React.useState({
+        showModal: false,
+        badgeCount: 4
+    });
+
+
     const classes = useStyles();
+    
     return (
         <Button
             variant="contained"
             className={classes.displayButton}
             startIcon={
-                <Badge badgeContent={2} showZero max={5} color="secondary" style={{flexGrow: "1", color: "white"}}>
+                <Badge badgeContent={actionBtnState.badgeCount} showZero max={5} color="secondary" style={{flexGrow: "1", color: "white"}}>
                     <List />
                 </Badge>}>
         </Button>
