@@ -21,9 +21,13 @@ function DisplayListActionButton() {
 
     const [actionBtnState, setActionBtnState] = React.useState({
         showModal: false,
-        badgeCount: 4
+        badgeCount: 2,
     });
 
+
+    const handleClick = (event) => {
+        alert(`There are ${globalState.todoItems.length} to-do items`);
+    }
 
     const classes = useStyles();
     
@@ -31,8 +35,9 @@ function DisplayListActionButton() {
         <Button
             variant="contained"
             className={classes.displayButton}
+            onClick={handleClick}
             startIcon={
-                <Badge badgeContent={actionBtnState.badgeCount} showZero max={5} color="secondary" style={{flexGrow: "1", color: "white"}}>
+                <Badge badgeContent={globalState.todoItems.length} showZero max={5} color="secondary" style={{flexGrow: "1", color: "white"}}>
                     <List />
                 </Badge>}>
         </Button>

@@ -9,7 +9,9 @@ const useStyles = makeStyles(theme => ({
         textAlign: "center",
         border: "2px solid grey",
         borderRadius: "4px",
-        minWidth: "600px"   
+        minWidth: "600px",
+        minHeight: "50px",
+        marginTop: "250px"
     }
 }));
 
@@ -59,7 +61,7 @@ function TodoItemInput() {
             <div style={{textAlign: "center"}}>
                 <InputBase 
                     onChange={onInputBaseChange}
-                    placeholder={globalState.todoItems.length === 0 ? "Add something to do; take out the trash..." : ""}
+                    placeholder={globalState.todoItems.length === 0 ? "Add something to do; take out the trash..." : "Add your to-do..."}
                     inputProps={{ style: {textAlign: 'center'} }} 
                     value={todoItem.text}
                     className={classes.todoItemInput}/>
