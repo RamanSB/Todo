@@ -18,15 +18,11 @@ const useStyles = makeStyles(theme => ({
 function DisplayListActionButton() {
 
     const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
-
-    const [actionBtnState, setActionBtnState] = React.useState({
-        showModal: false,
-        badgeCount: 2,
-    });
-
-
     const handleClick = (event) => {
-        alert(`There are ${globalState.todoItems.length} to-do items`);
+        setGlobalState(state => ({
+            ...state,
+            showModal: !state.showModal
+        }));
     }
 
     const classes = useStyles();
@@ -36,6 +32,8 @@ function DisplayListActionButton() {
             variant="contained"
             className={classes.displayButton}
             onClick={handleClick}
+            disabled={!Boolean(globalState.todoItems.length)}
+            disableRipple={!Boolean(globalState.todoItems.length)}
             startIcon={
                 <Badge badgeContent={globalState.todoItems.length} showZero max={5} color="secondary" style={{flexGrow: "1", color: "white"}}>
                     <List />

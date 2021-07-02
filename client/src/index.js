@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Typography, Link } from '@material-ui/core';
+import { Paper, Typography, Link, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ReactDOM from 'react-dom';
 import Appbar from './components/Appbar';
@@ -52,19 +52,24 @@ const App = () => {
                     <GlobalStateContext.Consumer>
                         { contextValue => {                                
                             return (
-                                contextValue.globalState.todoItems.length === 0 && !appState.showInput?
+                                contextValue.globalState.showModal ? <TodoListModal/> :
+                                (contextValue.globalState.todoItems.length === 0 && !appState.showInput ?
                                 <Typography variant="h5" style={{textAlign: "center", marginTop: "240px"}}>
                                     It's seem like you have nothing to-do.<br/> Let's get started, click <Link onClick={handleNoItemLinkClick}>here</Link> to add something to-do.
-                                </Typography> : <TodoItemInput/> 
+                                </Typography> : <TodoItemInput/> )
                                );
                             }
                         }
                     </GlobalStateContext.Consumer>
+                    <GlobalStateContext.Consumer>
+                        {contextValue => {
+                            return (!contextValue.globalState.showModal ? 
+                                <div style={{textAlign: "end", paddingRight: "28px", marginTop: "184px"}}>
+                                    <DisplayListActionButton/>
+                                </div> : <></>);
+                        }}
+                    </GlobalStateContext.Consumer>
                     
-                    <div style={{textAlign: "end", paddingRight: "28px", marginTop: "184px"}}>
-                        <DisplayListActionButton/>
-                    </div>
-                    {/* <TodoListModal/> */}
                 </Paper>
             </div>
         </GlobalStateContextProvider>
