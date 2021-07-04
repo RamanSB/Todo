@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Typography, Link, Divider } from '@material-ui/core';
+import { Paper, Typography, Link, Divider, Snackbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ReactDOM from 'react-dom';
 import Appbar from './components/Appbar';
@@ -8,6 +8,7 @@ import DisplayListActionButton  from './components/DisplayListActionButton';
 import TodoListModal from './modals/TodoListModal';
 import GlobalStateContextProvider from './contexts/GlobalStateContext';
 import { GlobalStateContext } from './contexts/GlobalStateContext';
+import SnackbarLimit from './components/Snackbar';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,11 +39,12 @@ const App = () => {
             showInput: true
         }));
     }
-
+    
     const [appState, setAppState] = React.useState({
-        showInput: false
+        showInput: false,
     });
 
+    
     const classes = useStyles();
     return (
         <GlobalStateContextProvider>
@@ -69,6 +71,7 @@ const App = () => {
                                 </div> : <></>);
                         }}
                     </GlobalStateContext.Consumer>
+                    <SnackbarLimit/>
                     
                 </Paper>
             </div>

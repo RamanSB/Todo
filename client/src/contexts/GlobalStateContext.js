@@ -6,6 +6,7 @@ const GlobalStateContextProvider = (props) => {
     
     const [globalState, setGlobalState] = React.useState({
         showModal: false,
+        showSnackbar: false,
         todoItems: []
     });
 

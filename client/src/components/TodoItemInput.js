@@ -3,6 +3,10 @@ import { Add } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import GlobalStateContextProvider, { GlobalStateContext } from '../contexts/GlobalStateContext';
+//import dotenv from 'dotenv'; - not loading properties in to process.env invoking dotenv.config()
+
+
+const MAX_NO_OF_TODO_ITEMS = 6;
 
 const useStyles = makeStyles(theme => ({
     todoItemInput: {
@@ -46,17 +50,24 @@ function TodoItemInput() {
             text: "",
             created: ""
         });
-        setGlobalState(globalState => ({
-            ...globalState,
-            todoItems: [...globalState.todoItems, {created: Date.now(), text: todoItem.text}]
-        }))
+        
+        if (globalState.todoItems.length + 1 > MAX_NO_OF_TODO_ITEMS) {
+            setGlobalState(globalState => ({
+                ...globalState,
+                showSnackbar: (globalState.todoItems.length + 1 > MAX_NO_OF_TODO_ITEMS) ? true : false
+            }))
+        } else {
+            setGlobalState(globalState => ({
+                ...globalState,
+                todoItems: [...globalState.todoItems, {created: Date.now(), text: todoItem.text}], 
+            }))
         console.log(`localState: [Final]: ${JSON.stringify(todoItem)}`);
         console.log(`GlobalState [Final]: ${JSON.stringify(globalState)}`);
-
-        
+        }
     }
 
     const classes = useStyles(); 
+
     return (        
             <div style={{textAlign: "center"}}>
                 <InputBase 
@@ -67,7 +78,7 @@ function TodoItemInput() {
                     className={classes.todoItemInput}/>
                 <IconButton 
                     onClick={onSubmitTodoItem}
-                    disabled={todoItem.text === ""} 
+                    disabled={todoItem.text === "" } 
                     style={{border: "1px solid white",
                     backgroundColor:"DimGray",
                     marginLeft:"4px"}}>
