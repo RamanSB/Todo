@@ -1,6 +1,6 @@
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
-import GlobalStateContextProvider, { GlobalStateContext } from '../contexts/GlobalStateContext';
+import { GlobalStateContext } from '../contexts/GlobalStateContext';
 import React from 'react';
 
 
@@ -14,7 +14,7 @@ function SnackbarLimit() {
     }
     
     return (
-        <Snackbar open={globalState.showSnackbar} autoHideDuration={8000} onClose={handleSnackbarClose}>
+        <Snackbar open={globalState.showSnackbar} autoHideDuration={8000} onClose={handleSnackbarClose} message={"loool"}>
             <MuiAlert severity="warning">
                 The number of to-do items is limited to a maximum of 6.
             </MuiAlert>

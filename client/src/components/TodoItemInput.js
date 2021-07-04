@@ -1,10 +1,10 @@
-import { InputBase, IconButton, Badge } from '@material-ui/core';
+import { InputBase, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import GlobalStateContextProvider, { GlobalStateContext } from '../contexts/GlobalStateContext';
+import { GlobalStateContext } from '../contexts/GlobalStateContext';
 //import dotenv from 'dotenv'; - not loading properties in to process.env invoking dotenv.config()
-
+import { v4 as uuidv4 } from 'uuid';
 
 const MAX_NO_OF_TODO_ITEMS = 6;
 
@@ -43,12 +43,10 @@ function TodoItemInput() {
         console.log(`State: ${JSON.stringify(todoItem)}`);
     }
 
-    const onSubmitTodoItem = () => {    
-        console.log(`localState [Initial]: ${JSON.stringify(todoItem)}`);
-        console.log(`GlobalState [Initial]: ${JSON.stringify(globalState)}`);
+    const onSubmitTodoItem = () => { 
         setTodoItem({
             text: "",
-            created: ""
+            created: "",
         });
         
         if (globalState.todoItems.length + 1 > MAX_NO_OF_TODO_ITEMS) {
@@ -59,10 +57,10 @@ function TodoItemInput() {
         } else {
             setGlobalState(globalState => ({
                 ...globalState,
-                todoItems: [...globalState.todoItems, {created: Date.now(), text: todoItem.text}], 
+                todoItems: [...globalState.todoItems, {created: Date.now(), text: todoItem.text, id: uuidv4()}], 
             }))
-        console.log(`localState: [Final]: ${JSON.stringify(todoItem)}`);
         console.log(`GlobalState [Final]: ${JSON.stringify(globalState)}`);
+        console.log(`Final Local State: ${JSON.stringify(todoItem)}`);
         }
     }
 

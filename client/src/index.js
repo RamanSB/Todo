@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Typography, Link, Divider, Snackbar } from '@material-ui/core';
+import { Paper, Typography, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ReactDOM from 'react-dom';
 import Appbar from './components/Appbar';

@@ -2,6 +2,8 @@ import { AppBar, Toolbar, Typography, IconButton, InputBase } from '@material-ui
 import { ListAlt } from '@material-ui/icons';
 import SearchIcon from '@material-ui/icons/Search';
 import { fade, makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+
 
 const useStyles = makeStyles(theme => ({
     toolbarIcon: {

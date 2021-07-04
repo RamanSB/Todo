@@ -1,5 +1,7 @@
 import { Card, CardContent, Typography, FormControlLabel, Checkbox } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { GlobalStateContext } from '../contexts/GlobalStateContext';
+import React from 'react';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -18,13 +20,26 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function TodoCardItem ({todoText, timeStamp}) {
+function TodoCardItem({todoText, timeStamp, id}) {
+    console.log(`Id: ${id}`);
+    const [itemDone, setItemDone] = React.useState(false);
+    const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
 
     const classes = useStyles();
     function formatTimestamp(timeStamp) {
         let date = new Date(timeStamp);
-        let dateString = `${date.getDay()}/${date.getMonth()}/${date.getUTCFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+        let minutes = (date.getMinutes()+'').length === 2 ? date.getMinutes() : '0'+date.getMinutes();
+        let dateString = `${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()} ${date.getHours()}:${minutes}`;
         return dateString;
+    }
+
+    const onCheckItem = (event) => {
+        console.log(`ID: ${id}`);
+        setItemDone(!itemDone);
+        setGlobalState(state => ({
+            ...state,
+            todoItems: state.todoItems.filter(todo => todo.id != id)
+        }))
     }
 
     return (
@@ -37,8 +52,8 @@ function TodoCardItem ({todoText, timeStamp}) {
                         labelPlacement="start"                              
                         control = {
                             <Checkbox
-                                checked={true}
-                                //onChange={}
+                                checked={itemDone}
+                                onChange={onCheckItem}
                                 name="checked-item"/>
                             }>
                     </FormControlLabel>
