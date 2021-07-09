@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 
 function TodoCardItem({todoText, timeStamp, id}) {
-    console.log(`Id: ${id}`);
+    
     const [itemDone, setItemDone] = React.useState(false);
     const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
 
@@ -33,13 +33,21 @@ function TodoCardItem({todoText, timeStamp, id}) {
         return dateString;
     }
 
-    const onCheckItem = (event) => {
-        console.log(`ID: ${id}`);
-        setItemDone(!itemDone);
-        setGlobalState(state => ({
-            ...state,
-            todoItems: state.todoItems.filter(todo => todo.id != id)
-        }))
+    const onCheckItem = (event) => {    
+        setGlobalState(state => {
+            console.log(`Id: ${id}`);
+            return ({
+                ...state,
+                todoItems: [state.todoItems.map(x => {
+                    console.log(`Pre Filtered TodoItems: ${JSON.stringify(x)}`);
+                    return x;
+                }).filter(todo => todo.id !== id).map(x => {
+                    console.log(`Post Filtered TodoItems: ${JSON.stringify(x)}`);
+                    return x;
+                })],
+                });
+            }
+        );
     }
 
     return (

@@ -9,6 +9,7 @@ import TodoListModal from './modals/TodoListModal';
 import GlobalStateContextProvider from './contexts/GlobalStateContext';
 import { GlobalStateContext } from './contexts/GlobalStateContext';
 import SnackbarLimit from './components/Snackbar';
+import { getAllTodos } from './api/todo-api'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,9 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = () => {
-
+    
     const handleNoItemLinkClick = (event) => {
-        console.log(`When this is clicked we will display an InputBase to add a Todo Item`);
         setAppState(state => ({
             ...state,
             showInput: true
@@ -44,10 +44,17 @@ const App = () => {
         showInput: false,
     });
 
+    const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
+    React.useEffect(async function() {
+        console.log(`Obtaining all todo list items in the DB when index.js App component is mounted`);
+        let allTodos = await (await getAllTodos()).data;        
+        console.log(`HTTP Request: ${JSON.stringify(allTodos)}`);
+        setGlobalState(state => ({...globalState, todoItems: allTodos}))
+    }, [])
+
     
     const classes = useStyles();
     return (
-        <GlobalStateContextProvider>
             <div id="root" className={classes.rootContainer}>
                 <Paper elevation={2} className={classes.paperContainer}>
                     <Appbar/>
@@ -59,7 +66,7 @@ const App = () => {
                                 <Typography variant="h5" style={{textAlign: "center", marginTop: "240px"}}>
                                     It's seem like you have nothing to-do.<br/> Let's get started, click <Link onClick={handleNoItemLinkClick}>here</Link> to add something to-do.
                                 </Typography> : <TodoItemInput/> )
-                               );
+                            );
                             }
                         }
                     </GlobalStateContext.Consumer>
@@ -72,13 +79,14 @@ const App = () => {
                         }}
                     </GlobalStateContext.Consumer>
                     <SnackbarLimit/>
-                    
                 </Paper>
             </div>
-        </GlobalStateContextProvider>
     );
 }
 
-ReactDOM.render(<App/>, document.querySelector('#root'));
+ReactDOM.render(
+    (<><GlobalStateContextProvider>
+        <App/>
+    </GlobalStateContextProvider></>), document.querySelector('#root'));
 
 export default App;

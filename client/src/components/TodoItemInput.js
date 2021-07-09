@@ -5,6 +5,7 @@ import React from 'react';
 import { GlobalStateContext } from '../contexts/GlobalStateContext';
 //import dotenv from 'dotenv'; - not loading properties in to process.env invoking dotenv.config()
 import { v4 as uuidv4 } from 'uuid';
+import { createTodo } from '../api/todo-api';
 
 const MAX_NO_OF_TODO_ITEMS = 6;
 
@@ -30,8 +31,6 @@ function TodoItemInput() {
 
 
     const onInputBaseChange = (event) => {
-        console.log(`An input occurred: ${event.target.value}`);
-        console.log(`Initial State: ${JSON.stringify(todoItem)}`);
         setTodoItem(oldState => (
             {
                 ...oldState,
@@ -39,8 +38,6 @@ function TodoItemInput() {
                 text: event.target.value.toString()
             }
         ));
-
-        console.log(`State: ${JSON.stringify(todoItem)}`);
     }
 
     const onSubmitTodoItem = () => { 
@@ -55,13 +52,17 @@ function TodoItemInput() {
                 showSnackbar: (globalState.todoItems.length + 1 > MAX_NO_OF_TODO_ITEMS) ? true : false
             }))
         } else {
-            setGlobalState(globalState => ({
-                ...globalState,
-                todoItems: [...globalState.todoItems, {created: Date.now(), text: todoItem.text, id: uuidv4()}], 
-            }))
-        console.log(`GlobalState [Final]: ${JSON.stringify(globalState)}`);
-        console.log(`Final Local State: ${JSON.stringify(todoItem)}`);
+            setGlobalState(globalState => {
+                let newTodo = {created: Date.now(), text: todoItem.text, id: uuidv4()};
+                console.log(`NewTodo; ${JSON.stringify(newTodo)}`);
+                createTodo(newTodo);
+                return ({
+                    ...globalState,
+                    todoItems: [...globalState.todoItems, newTodo], 
+                })})
         }
+
+        
     }
 
     const classes = useStyles(); 

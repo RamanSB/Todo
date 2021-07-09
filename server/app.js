@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import mongoose from 'mongoose';
+import cors from 'cors';
 
 const result = dotenv.config(); //loads data in .env file into process.env object.
 
@@ -17,22 +18,23 @@ const host = process.env.SERVER_HOST || "127.0.0.1";
     is the base path by default.
 */
 
-
+app.use(cors());
 app.use(bodyParser.json()); //Ensures the request body object can be parsed, otherwise results in undefined.
 app.use('/', routes); //parameters: basePath & endPoints
 
 //We should put the least specific routes at the end, as the 1st route that matches is invoked.
 app.use('/', (req, res) => {
-    console.log("Welcome to the ToDo back end");
     return res.send("Welcome to the ToDo back end");
 });
 /*
     Connecting to database
 */
 mongoose.Promise = global.Promise;
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true}, () => {
     console.log(`Successfully connected to database: ${process.env.MONGO_URI}`);
 });
+
 mongoose.connection.on('error', (err) => {
     console.log(`Unable to connect to database @ ${process.env.MONGO_URI}`);
 });
@@ -40,4 +42,4 @@ mongoose.connection.on('error', (err) => {
 
 app.listen(port, host, () => {
     console.log(`Server is running successfully @ ${host}:${port}`)
-});
+}); 

@@ -1,14 +1,17 @@
 import mongoose from 'mongoose';
 
 const TodoModel = mongoose.Schema({
-    "title": {
+    "text": {
         type: String,
         required: true,
     },
-    "description": String,
     "date": {
         type: Date,
         default: Date.now
+    },
+    "id": {
+        type: String,
+        required: true
     }
 });
 
