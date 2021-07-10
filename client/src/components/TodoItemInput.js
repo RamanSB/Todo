@@ -35,7 +35,7 @@ function TodoItemInput() {
             {
                 ...oldState,
                 created: Date.now(),
-                text: event.target.value.toString()
+                text: event.target.value.toString(),
             }
         ));
     }
@@ -52,14 +52,14 @@ function TodoItemInput() {
                 showSnackbar: (globalState.todoItems.length + 1 > MAX_NO_OF_TODO_ITEMS) ? true : false
             }))
         } else {
-            setGlobalState(globalState => {
-                let newTodo = {created: Date.now(), text: todoItem.text, id: uuidv4()};
-                console.log(`NewTodo; ${JSON.stringify(newTodo)}`);
-                createTodo(newTodo);
-                return ({
+            let newTodo = {created: Date.now(), text: todoItem.text};
+            console.log(`NewTodo; ${JSON.stringify(newTodo)}`);
+            setGlobalState(globalState => ({
                     ...globalState,
-                    todoItems: [...globalState.todoItems, newTodo], 
-                })})
+                    todoItems: [...globalState.todoItems, newTodo]
+                })
+            );
+            createTodo(newTodo);
         }
 
         

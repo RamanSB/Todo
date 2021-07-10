@@ -3,6 +3,7 @@ import { ListAlt } from '@material-ui/icons';
 import SearchIcon from '@material-ui/icons/Search';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import { GlobalStateContext } from "../contexts/GlobalStateContext";
 
 
 const useStyles = makeStyles(theme => ({
@@ -62,6 +63,7 @@ const useStyles = makeStyles(theme => ({
 
 function Appbar() {
 
+    const { globalState } = React.useContext(GlobalStateContext);
     const classes = useStyles();
     return (
         <AppBar position="static">
@@ -74,6 +76,7 @@ function Appbar() {
                         <ListAlt/>
                     </IconButton>
                 </div>
+                { globalState.showModal ?
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
                         <SearchIcon />
@@ -85,7 +88,7 @@ function Appbar() {
                             input: classes.inputInput,
                         }}
                         inputProps={{ 'aria-label': 'search' }}/>
-                </div>
+                </div> : <></>}
             </Toolbar>
         </AppBar>
     );

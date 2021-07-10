@@ -2,6 +2,7 @@ import { Card, CardContent, Typography, FormControlLabel, Checkbox } from '@mate
 import { makeStyles } from '@material-ui/core/styles';
 import { GlobalStateContext } from '../contexts/GlobalStateContext';
 import React from 'react';
+import { deleteTodo, deleteToDo } from '../api/todo-api';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -34,20 +35,19 @@ function TodoCardItem({todoText, timeStamp, id}) {
     }
 
     const onCheckItem = (event) => {    
+        let completedTodo = globalState.todoItems.filter(todo => todo._id === id)[0];
+        deleteTodo(completedTodo);    
+    
         setGlobalState(state => {
             console.log(`Id: ${id}`);
+            console.log(`[onCheckItem] State: ${JSON.stringify(state)}`)
             return ({
                 ...state,
-                todoItems: [state.todoItems.map(x => {
-                    console.log(`Pre Filtered TodoItems: ${JSON.stringify(x)}`);
-                    return x;
-                }).filter(todo => todo.id !== id).map(x => {
-                    console.log(`Post Filtered TodoItems: ${JSON.stringify(x)}`);
-                    return x;
-                })],
-                });
-            }
-        );
+                todoItems: state.todoItems.filter(todo => todo._id != id),
+            });
+        });
+
+        
     }
 
     return (
@@ -55,7 +55,7 @@ function TodoCardItem({todoText, timeStamp, id}) {
             <CardContent className={classes.cardContent}>
                 <Typography variant="overline" gutterBottom style={{wordWrap: "break-word"}}>{todoText}</Typography>
                 <div style={{display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginRight: "8px" }}>
-                    <Typography style={{alignSelf: "center"}} variant="overline">{formatTimestamp(timeStamp)}</Typography>
+                    <Typography style={{fontSize: "11px", alignSelf: "center"}} noWrap variant="overline">{formatTimestamp(timeStamp)}</Typography>
                     <FormControlLabel
                         labelPlacement="start"                              
                         control = {

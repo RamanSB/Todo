@@ -47,9 +47,9 @@ const App = () => {
     const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
     React.useEffect(async function() {
         console.log(`Obtaining all todo list items in the DB when index.js App component is mounted`);
-        let allTodos = await (await getAllTodos()).data;        
-        console.log(`HTTP Request: ${JSON.stringify(allTodos)}`);
-        setGlobalState(state => ({...globalState, todoItems: allTodos}))
+        let allTodos = await (await getAllTodos()).data;
+        console.log(`All Todos from backend: ${JSON.stringify(allTodos)}`);
+        setGlobalState(state => ({...globalState, todoItems: allTodos}));
     }, [])
 
     

@@ -15,7 +15,6 @@ const getAllTodos = async (req, res) => {
 const createTodo = async (req, res) => {
     try {
         console.log(`Request body: ${JSON.stringify(req.body)}`);   
-        //console.log(`Properties; ${title}, ${description} @ ${date}`);
         const newTodo = new TodoModel(req.body);
         console.log(`${JSON.stringify(newTodo)}`);
         await newTodo.save();
@@ -40,7 +39,7 @@ const getTodoById = async (req, res) => {
 const deletePost = async (req, res) => {
     try {
         const {_id} = req.body.todo;
-        console.log(`Id: ${_id}`);
+        console.log(`Deleting post with id: ${_id}`);
         await TodoModel.findByIdAndDelete(_id);
         console.log(`Successfully delete post: ${JSON.stringify(req.body.todo)}`);
         return res.status(200).json({
@@ -58,7 +57,7 @@ const loadTodo = async (req, res, next, id) => {
     try {
         console.log(`loadTodo: ${id}`);
         const todoItem = await TodoModel.findById(id);
-        if( todoItem == null) {
+        if (todoItem == null) {
             throw new Error("Unable to find todo item with id: "  + id);
         }
         req.body.todo = todoItem;
