@@ -4,10 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { GlobalStateContext } from '../contexts/GlobalStateContext';
 //import dotenv from 'dotenv'; - not loading properties in to process.env invoking dotenv.config()
-import { v4 as uuidv4 } from 'uuid';
 import { createTodo } from '../api/todo-api';
 
-const MAX_NO_OF_TODO_ITEMS = 6;
+export const MAX_NO_OF_TODO_ITEMS = 10;
 
 const useStyles = makeStyles(theme => ({
     todoItemInput: {
@@ -16,7 +15,8 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "4px",
         minWidth: "600px",
         minHeight: "50px",
-        marginTop: "250px"
+        marginTop: "250px",
+        color: "white"
     }
 }));
 
@@ -29,7 +29,6 @@ function TodoItemInput() {
             created: Date.now()
     });
 
-
     const onInputBaseChange = (event) => {
         setTodoItem(oldState => (
             {
@@ -40,12 +39,8 @@ function TodoItemInput() {
         ));
     }
 
-    const onSubmitTodoItem = () => { 
-        setTodoItem({
-            text: "",
-            created: "",
-        });
-        
+    const onSubmitTodoItem = async () => {         
+        // Caps the number of to-do items
         if (globalState.todoItems.length + 1 > MAX_NO_OF_TODO_ITEMS) {
             setGlobalState(globalState => ({
                 ...globalState,
@@ -59,10 +54,13 @@ function TodoItemInput() {
                     todoItems: [...globalState.todoItems, newTodo]
                 })
             );
-            createTodo(newTodo);
+            await createTodo(newTodo);
         }
-
-        
+        // Clears the TodoItemInput state - ready to enter another todo item.
+        setTodoItem({
+            text: "",
+            created: "",
+        });
     }
 
     const classes = useStyles(); 

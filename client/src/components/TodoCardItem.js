@@ -1,13 +1,15 @@
-import { Card, CardContent, Typography, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Card, CardContent, Typography, FormControlLabel, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { GlobalStateContext } from '../contexts/GlobalStateContext';
+import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
-import { deleteTodo, deleteToDo } from '../api/todo-api';
+import { deleteTodo } from '../api/todo-api';
 
 const useStyles = makeStyles(theme => ({
     card: {
         width: "180px",
         height: "220px",
+        backgroundImage: "linear-gradient(to top left, slategrey, hotpink)",
         backgroundColor: "white"
     },
     cardContent: {
@@ -23,10 +25,10 @@ const useStyles = makeStyles(theme => ({
 
 function TodoCardItem({todoText, timeStamp, id}) {
     
-    const [itemDone, setItemDone] = React.useState(false);
     const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
 
     const classes = useStyles();
+    // Intended to use moment library however some articles suggest it's no longer useful/relevant 
     function formatTimestamp(timeStamp) {
         let date = new Date(timeStamp);
         let minutes = (date.getMinutes()+'').length === 2 ? date.getMinutes() : '0'+date.getMinutes();
@@ -34,37 +36,33 @@ function TodoCardItem({todoText, timeStamp, id}) {
         return dateString;
     }
 
-    const onCheckItem = (event) => {    
-        let completedTodo = globalState.todoItems.filter(todo => todo._id === id)[0];
-        deleteTodo(completedTodo);    
+    const onCheckItem = async (event) => {    
+        // Attempted to use _id value, but caused errors - relying on the fact no one will create a TodoItem with the same textContent
+        let completedTodo = globalState.todoItems.filter(todo => todo.text === todoText)[0];
+        await deleteTodo(completedTodo);    
     
         setGlobalState(state => {
-            console.log(`Id: ${id}`);
-            console.log(`[onCheckItem] State: ${JSON.stringify(state)}`)
             return ({
                 ...state,
-                todoItems: state.todoItems.filter(todo => todo._id != id),
+                todoItems: state.todoItems.filter(todo => todo.text !== todoText),
             });
         });
-
-        
     }
 
     return (
         <Card className={classes.card}>
             <CardContent className={classes.cardContent}>
-                <Typography variant="overline" gutterBottom style={{wordWrap: "break-word"}}>{todoText}</Typography>
+                <Typography variant="overline" gutterBottom style={{wordWrap: "break-word", color:"white"}}>{todoText}</Typography>
                 <div style={{display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginRight: "8px" }}>
-                    <Typography style={{fontSize: "11px", alignSelf: "center"}} noWrap variant="overline">{formatTimestamp(timeStamp)}</Typography>
+                    <Typography style={{color: "white", fontSize: "11px", alignSelf: "center"}} noWrap variant="overline">{formatTimestamp(timeStamp)}</Typography>
                     <FormControlLabel
                         labelPlacement="start"                              
                         control = {
-                            <Checkbox
-                                checked={itemDone}
-                                onChange={onCheckItem}
-                                name="checked-item"/>
-                            }>
-                    </FormControlLabel>
+                            <IconButton size="small" onClick={onCheckItem} style={{color:"white"}}>
+                                <DeleteIcon />
+                            </IconButton>
+                            }
+                    />
                 </div>
             </CardContent>
         </Card>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { getAllTodos } from '../api/todo-api';
 
 export const GlobalStateContext = React.createContext();
 
