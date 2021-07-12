@@ -11,7 +11,7 @@ Server side code such as defining routes, controller functionality & configuring
 React has been used for the front-end development. The MaterialUI library has also been used.
 
 ### Demo
-![Demonstrating App](https://github.com/RamanSB/Todo/blob/master/client/public/todo-demo.gif)
+![Demonstrating App](https://github.com/RamanSB/Todo/blob/master/client/public/demo-todo.gif)
 
 
 ### State Management
