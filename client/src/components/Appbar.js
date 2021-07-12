@@ -69,7 +69,7 @@ function Appbar() {
         console.log(`Event: ${event.target.value}`);
         setGlobalState(state => {
             if(event.target.value !== ''){
-                return ({...state, searchKey: event.target.value});
+                return ({...state, searchKey: event.target.value.toString().trim()});
             }
             return ({...state, searchKey: ""});
         });
