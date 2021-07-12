@@ -1,3 +1,4 @@
+### Overview
 This project represents a full-stack ToDo App that I have created using the MERN stack. 
 
 
@@ -17,4 +18,6 @@ React has been used for the front-end development. The MaterialUI library has al
 Reacts createContext & useContext hooks hae been used to help manage state.
 
 
-The createContext hook was initially used to create a Context object within the contexts/GlobalStateContext.js file, here in this file we create a function that creates a globalState object (using React.useState) (The state and state setter are returned in an array). We then provide these values to the Provider property/object of the context we had created. This GlobalStateContextProvider will be exported to the class that renders the root component, the GlobalStateContextProvider will wrap around the root component, thus becoming the root component such that all child components can access the values within the provider, the globalState & it's setter.
+The createContext hook was initially used to create a Context object within the contexts/GlobalStateContext.js file, here in this file we create a function that creates a globalState object (using React.useState) (The state and state setter are returned in an array). We then provide these values to the Provider property/object of the context we had created.
+
+This GlobalStateContextProvider will be exported to the class that renders the root component, the GlobalStateContextProvider will wrap around the root component, thus becoming the root component such that all child components can access the values within the provider, the globalState & it's setter.
