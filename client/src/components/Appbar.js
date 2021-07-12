@@ -63,7 +63,18 @@ const useStyles = makeStyles(theme => ({
 
 function Appbar() {
 
-    const { globalState } = React.useContext(GlobalStateContext);
+    const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
+    
+    const handleSearchInput = (event) => {
+        console.log(`Event: ${event.target.value}`);
+        setGlobalState(state => {
+            if(event.target.value !== ''){
+                return ({...state, searchKey: event.target.value});
+            }
+            return ({...state, searchKey: ""});
+        });
+    }
+
     const classes = useStyles();
     return (
         <AppBar position="static">
@@ -83,6 +94,7 @@ function Appbar() {
                     </div>
                     <InputBase
                         placeholder="Search…"
+                        onChange={handleSearchInput}
                         classes={{
                             root: classes.inputRoot,
                             input: classes.inputInput,
