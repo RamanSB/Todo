@@ -39,6 +39,10 @@ mongoose.connection.on('error', (err) => {
     console.log(`Unable to connect to database @ ${process.env.MONGO_URI}`);
 });
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+}
+
 
 app.listen(port, host, () => {
     console.log(`Server is running successfully @ ${host}:${port}`)
