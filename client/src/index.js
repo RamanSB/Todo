@@ -44,11 +44,14 @@ const App = () => {
         showInput: false,
     });
 
-    const { globalState, setGlobalState } = React.useContext(GlobalStateContext);
-    React.useEffect(async function() {
-        let allTodos = await (await getAllTodos()).data;
-        setGlobalState(state => ({...globalState, todoItems: allTodos}));
-    }, [])
+    const { setGlobalState } = React.useContext(GlobalStateContext);
+    React.useEffect(() => {
+            async function fetchTodos() {
+                let allTodos = await (await getAllTodos()).data;
+                setGlobalState(state => ({...state, todoItems: allTodos}));
+            }
+            fetchTodos();
+    }, []);
 
     
     const classes = useStyles();
