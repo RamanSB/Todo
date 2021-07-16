@@ -43,7 +43,11 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 }
 
+process.on('uncaughtException', () => {
+    app.close();
+})
 
 app.listen(port, host, () => {
     console.log(`Server is running successfully @ ${host}:${port}`)
-}); 
+});
+

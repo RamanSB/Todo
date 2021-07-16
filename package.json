@@ -10,7 +10,7 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node ./server/app.js",
     "start-watch": "nodemon ./server/app.js",
-    "dev": "concurrently \"yarn start-watch\" \"cd client && yarn start\""
+    "dev": "concurrently \"npm start-watch\" \"cd client && npm start\""
   },
   "keywords": [],
   "author": "RamanSB",
