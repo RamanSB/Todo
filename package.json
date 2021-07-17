@@ -5,9 +5,7 @@
   "type": "module",
   "main": "./server/app.js",
   "scripts": {
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
     "start": "node ./server/app.js",
     "start-watch": "nodemon ./server/app.js",
     "dev": "concurrently \"npm start-watch\" \"cd client && npm start\""
