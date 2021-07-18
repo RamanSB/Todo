@@ -2,6 +2,9 @@
 This project represents a full-stack ToDo App that I have created using the MERN stack. 
 
 
+Project has been deployed using heroku and can be found here: https://ramansb-todo.herokuapp.com/
+
+
 MongoDB has been used as the database that stores the TodoModel collections defined using the mongoose library.
 
 
