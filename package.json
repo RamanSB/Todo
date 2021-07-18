@@ -5,11 +5,13 @@
   "type": "module",
   "main": "./server/app.js",
   "scripts": {
-    "heroku-postbuild": "cd client && npm install && npm run build",
-    "start": "node ./server/app.js",
-    "start-watch": "nodemon ./server/app.js",
-    "dev": "concurrently \"npm start-watch\" \"cd client && npm start\""
-  },
+    "dev": "react-scripts start",
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
+    },
   "keywords": [],
   "author": "RamanSB",
   "license": "ISC",
