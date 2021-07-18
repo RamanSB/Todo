@@ -22,10 +22,6 @@ app.use(cors());
 app.use(bodyParser.json()); //Ensures the request body object can be parsed, otherwise results in undefined.
 app.use('/', routes); //parameters: basePath & endPoints
 
-//We should put the least specific routes at the end, as the 1st route that matches is invoked.
-app.use('/', (req, res) => {
-    return res.send("Welcome to the ToDo back end");
-});
 /*
     Connecting to database
 */
