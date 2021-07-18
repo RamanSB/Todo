@@ -12,7 +12,6 @@ const result = dotenv.config(); //loads data in .env file into process.env objec
 const app = express();
 
 const port = process.env.PORT || 5000;
-const host = process.env.SERVER_HOST || "127.0.0.1";
 
 /*
     The code below this comment doesn't need '/' to be specified as this 
@@ -53,7 +52,7 @@ process.on('uncaughtException', () => {
     app.close();
 })
 
-app.listen(port, host, () => {
-    console.log(`Server is running successfully @ ${host}:${port}`)
+app.listen(port || 5000, () => {
+    console.log(`Server is running successfully @ ${port}`)
 });
 
