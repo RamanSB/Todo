@@ -10,7 +10,7 @@ const result = dotenv.config(); //loads data in .env file into process.env objec
 
 const app = express();
 
-const port = process.env.SERVER_PORT || 5000;
+const port = process.env.PORT || 5000;
 const host = process.env.SERVER_HOST || "127.0.0.1";
 
 /*
